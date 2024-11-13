@@ -51,14 +51,13 @@ async function main() {
   ];
 
   for (let entry of productData) {
-    await client.query(`INSERT INTO products(name,price,image) values($1,$2,$3)`, [
-      entry.name,
-      entry.price,
-      entry.image
-    ]);
+    await client.query(
+      `INSERT INTO products(name,price,image) values($1,$2,$3)`,
+      [entry.name, entry.price, entry.image]
+    );
   }
 
-  console.log("seed data done")
+  console.log("seed data done");
   await client.end();
 }
 
