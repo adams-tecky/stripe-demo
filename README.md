@@ -21,15 +21,15 @@ There are mainly two pages for you to read documentations:
 - `user_id` is assumed to be 1.
 - Endpoint: `POST /webhook` must be placed before middleware `express.json()`.This is necessary because the Stripe webhook requires the raw request body for signature verification, which would be processed incorrectly if parsed by express.json().
 
-- On checking out, a new transaction with status `in progress` is created with details record in transaction_details table
-- The new transaction's id is sent to Stripe as metadata
+- On checking out, a new transaction with status `in progress` is created with details record in transaction_details table.
+- The new transaction's id is sent to Stripe as metadata.
   ```ts
   const metadata = {
     transaction_id: transaction_id,
   };
   ```
 - Upon successful payment with Stripe, Stripe CLI forward events to http://localhost:8080/webhook. (You have to do step 4&5 in # how to start )
-- In the `payment_intent.succeeded` event,you can retrieved the transaction_id previously stored in metadata
+- In the `payment_intent.succeeded` event,you can retrieved the transaction_id previously stored in metadata.
 
   ```ts
   const paymentIntentSucceededObject = event.data.object;
