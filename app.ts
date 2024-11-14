@@ -39,10 +39,9 @@ app.post(
       event = stripe.webhooks.constructEvent(payload, sig!, endpointSecret);
       switch (event.type) {
         case "payment_intent.succeeded":
-          const paymentIntentSucceeded = event.data.object;
-          console.log(paymentIntentSucceeded.metadata);
+          const paymentIntentSucceededObject = event.data.object;
           await client.query(
-            `UPDATE transactions SET status = 'completed',stripe_id = '${paymentIntentSucceeded.id}' WHERE id = ${paymentIntentSucceeded.metadata.transaction_id}`
+            `UPDATE transactions SET status = 'completed',stripe_id = '${paymentIntentSucceededObject.id}' WHERE id = ${paymentIntentSucceededObject.metadata.transaction_id}`
           );
 
           break;
